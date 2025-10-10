@@ -10,7 +10,7 @@ module.exports.renderSignupForm=(req,res)=>{
 module.exports.renderLoginForm=(req,res)=>{
     res.render("users/login");
 };
-module.exports.signup=async (req,res)=>{
+module.exports.signup=async (req,res,next)=>{
     try{
         let {role}=req.params;
         let {username,email,password,receiverName,donorName,receiver_type,phone,address,about}=req.body;
@@ -34,7 +34,7 @@ module.exports.signup=async (req,res)=>{
             return next(err)
         }
         req.flash("sucess","Welcome to StayQuest!");
-        res.redirect("/role");
+        res.redirect(`/profile/${registeredUser._id}`);
     })
     } catch(e){
         console.log("ERROR MESSAGE:", e.message); // ← यह add करो
@@ -46,11 +46,35 @@ module.exports.signup=async (req,res)=>{
 module.exports.login = async (req, res) => {
     req.flash("success", "Welcome back to StayQuest!");
     
-    // Priority: stored redirect URL first, then role-based redirect
-    let redirectUrl = res.locals.redirectUrl || 
-                     (req.user.role === 'donor' ? "/donor" : "/receiver");
+    let redirectUrl = res.locals.redirectUrl || `/profile/${req.user._id}`;
     
     console.log(`User ${req.user.username} with role ${req.user.role} redirecting to ${redirectUrl}`);
     
     res.redirect(redirectUrl);
 };
+
+module.exports.profile=async(req,res)=>{
+    let {id}=req.params;
+    console.log(id);
+    let userData=await User.findById(id);
+    console.log(userData);
+    if(userData){
+        res.render("users/profile",{userData});
+    }else{
+        res.render("error","Login to access this feature");
+    }
+    
+}
+
+module.exports.editProfile=async(req,res)=>{
+    let {id}=req.params;
+    let user=await User.findByIdAndUpdate(id,{...req.body.user});
+    if(req.file){
+        let url=req.file.path;
+        let filename=req.file.filename;
+    user.pfp={url,filename};
+    await user.save();
+    }
+    req.flash("sucess","Profile Updated Successfully!");
+    res.redirect(`/profile/${id}`);
+}

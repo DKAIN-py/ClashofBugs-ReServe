@@ -14,5 +14,7 @@ router.route("/:role/signup")
 router.route("/login")
 .get(userController.renderLoginForm)
 .post(saveRedirectUrl,passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),userController.login);
+router.get("/profile/:id",isLoggedIn,userController.profile);
+router.get("/profile/:id/edit",isLoggedIn,userController.profileEditRender);
 
 module.exports=router;
