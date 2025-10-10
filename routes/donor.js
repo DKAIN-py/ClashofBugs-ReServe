@@ -2,5 +2,5 @@ const express=require("express");
 const router=express.Router();
 const wrapAsync=require("../utils/wrapAsync");
 const donorController=require("../controllers/donor.js");
-router.get("/dashboard",donorController.dashboardRender);
+router.get("/",donorController.dashboardRender);
 module.exports=router;
