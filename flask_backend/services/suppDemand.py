@@ -25,7 +25,7 @@ def idlistgen(idlist)->list:
 
     reslist = sorted(newlist, key=lambda x: x["match_probability"], reverse=True)
     print(reslist)
-    return jsonify(reslist)
+    return reslist
 
 
 

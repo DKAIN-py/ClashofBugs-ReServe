@@ -45,6 +45,8 @@ const port=8080;
 //routes requiring
 const userRouter=require("./routes/user.js");
 const donorRouter=require("./routes/donor.js");
+const receiverRouter = require("./routes/receiver.js");
+
 main()
 .then(res=>console.log("connection success with db reserve"))
 .catch(err=>console.log(err));
@@ -62,6 +64,7 @@ app.get("/",(req,res)=>{
 })
 app.use("/",userRouter);
 app.use("/donor",donorRouter);
+app.use("/receiver", receiverRouter);
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "page not found"));
