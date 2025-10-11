@@ -623,31 +623,34 @@
         <div class="food-grid" id="foodGrid">
             <% if (donations && donations.length > 0) { %>
                 <% donations.forEach(donation => { %>
-                    <div class="food-card" data-category="<%= donation.food_category %>">
-                        <img src="<%= donation.image?.url || '/assets/placeholder-food.jpg' %>" 
-                             alt="<%= donation.itemName %>" 
-                             class="food-image"
-                             onerror="this.src='/assets/placeholder-food.jpg'">
-                        <div class="food-info">
-                            <div class="food-name"><%= donation.itemName %></div>
-                            <div class="food-type">
-                                <%= donation.food_category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) %>
-                            </div>
-                            <div class="shelf-life">
-                                Shelf Life: <%= donation.shelfLife.days %>d <%= donation.shelfLife.hours %>h
-                            </div>
-                            <div class="food-meta">
-                                <span class="donor-name">
-                                    <% if (donation.donor) { %>
-                                        <%= donation.donor.donorName || donation.donor.username || 'Anonymous Donor' %>
-                                    <% } else { %>
-                                        Anonymous Donor
-                                    <% } %>
-                                </span>
-                                <span class="serving-count"><%= donation.serving %> servings</span>
+                    <a href="/receiver/<%= donation._id %>" style="text-decoration: none;">
+                        <div class="food-card" data-category="<%= donation.food_category %>">
+                            <img src="<%= donation.image?.url || '/assets/placeholder-food.jpg' %>" 
+                                 alt="<%= donation.itemName %>" 
+                                 class="food-image"
+                                 onerror="this.src='/assets/placeholder-food.jpg'">
+                            <div class="food-info">
+                                <div class="food-name"><%= donation.itemName %></div>
+                                <div class="food-type">
+                                    <%= donation.food_category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) %>
+                                </div>
+                                <div class="shelf-life">
+                                    Shelf Life: <%= donation.shelfLife.days %>d <%= donation.shelfLife.hours %>h
+                                </div>
+                                <div class="food-meta">
+                                    <span class="donor-name">
+                                        <% if (donation.donor) { %>
+                                            <%= donation.donor.donorName || donation.donor.username || 'Anonymous Donor' %>
+                                        <% } else { %>
+                                            Anonymous Donor
+                                        <% } %>
+                                    </span>
+                                    <span class="serving-count"><%= donation.serving %> servings</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                    
                 <% }) %>
             <% } else { %>
                 <div class="no-items">

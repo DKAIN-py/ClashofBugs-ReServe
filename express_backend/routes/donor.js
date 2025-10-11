@@ -10,5 +10,6 @@ const {saveRedirectUrl,isLoggedIn}=require("../middleware.js");
 
 router.get("/",donorController.dashboardRender);
 router.get("/donate",donorController.donateFormRender);
+router.get("/confirmation",donorController.confirmationRender);
 router.post("/donate",isLoggedIn,upload.single('donorItem[image]'),wrapAsync(donorController.donationSend));
 module.exports=router;

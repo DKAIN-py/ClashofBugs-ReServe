@@ -190,3 +190,10 @@ module.exports.showFilteredDonations = async (req, res) => {
         res.redirect("/receiver/dashboard");
     }
 };
+
+module.exports.showListing=async(req,res)=>{
+    let { id } = req.params;
+    let listing = await DonorItem.findById(id);
+    res.render("receiver/confirmation",{ listing });
+    console.log(listing);
+}

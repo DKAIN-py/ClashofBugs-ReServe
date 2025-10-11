@@ -10,5 +10,5 @@ router.get("/",wrapAsync(receiverController.dashboardRender));
 router.post('/filter', isLoggedIn,receiverController.filterDonations);
 
 router.get("/filter", isLoggedIn, receiverController.showFilteredDonations);
-
+router.get("/:id",wrapAsync(receiverController.showListing))
 module.exports=router;
