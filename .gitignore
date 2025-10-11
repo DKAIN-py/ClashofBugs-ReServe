@@ -1,2 +1,4 @@
 .DS_Store
-node_modules
+express_backend/node_modules
+flask_backend/.venv
+flask_backend/template

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flask Filter Test</title>
+</head>
+<body>
+  <h2>Filter Donors by Food Category & Nearest</h2>
+
+  <label for="category">Select Food Category:</label><br>
+  <select id="category">
+    <option value="grains_and_rice">Grains & Rice</option>
+    <option value="breads">Breads</option>
+    <option value="lentils_and_pulses">Lentils & Pulses</option>
+    <option value="vegetables">Vegetables</option>
+    <option value="curries_and_gravies">Curries & Gravies</option>
+    <option value="snacks_and_streetfood">Snacks & Streetfood</option>
+    <option value="breakfast_items">Breakfast Items</option>
+    <option value="sweets_and_desserts">Sweets & Desserts</option>
+    <option value="dairy_products">Dairy Products</option>
+    <option value="fruits">Fruits</option>
+    <option value="beverages">Beverages</option>
+  </select>
+  <br><br>
+
+  <input type="checkbox" id="nearest"> Include Nearest / Routing<br><br>
+
+  <button onclick="sendFilterData()">Send Test Data</button>
+
+  <pre id="responseBox"></pre>
+
+  <script>
+    async function sendFilterData() {
+      // Get selected food category
+      const category = document.getElementById("category").value;
+
+      const nearest = document.getElementById("nearest").checked;
+
+      // Example donor list
+      const donorlist = [
+        {"_id": "D001", "address": "Connaught Place, New Delhi", "food_category": ["grains_and_rice"], "quantity": 50},
+        {"_id": "D002", "address": "Karol Bagh, New Delhi", "food_category": ["fruits"], "quantity": 30},
+        {"_id": "D003", "address": "Dwarka, New Delhi", "food_category": ["vegetables"], "quantity": 40},
+        {"_id": "D004", "address": "Vasant Kunj, New Delhi", "food_category": ["dairy_products"], "quantity": 25}
+      ];
+
+      // Filters to send
+      const filters = {
+        "food_category": [category], // send as array for your scoring function
+        "live_loc": [28.6139, 77.2090],  // Example receiver coords
+        "nearest": nearest,
+        "capacity": 50
+      };
+
+      const data = {donorli: donorlist, filters: filters};
+
+      try {
+        const response = await fetch("http://127.0.0.1:3000/receiver/filter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        
+        // const response = await fetch("http://127.0.0.1:5000/receiver/listings", {
+          //method: "POST",
+         // headers: { "Content-Type": "application/json" },
+         // body: JSON.stringify(data)
+        //});
+
+        const result = await response.json();
+        document.getElementById("responseBox").innerText = JSON.stringify(result, null, 2);
+      } catch (err) {
+        document.getElementById("responseBox").innerText = "Error: " + err;
+      }
+    }
+  </script>
+</body>
+</html>

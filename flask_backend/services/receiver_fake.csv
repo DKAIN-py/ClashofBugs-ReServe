@@ -1,0 +1,201 @@
+receiver_id,receiver_type,day_of_week,seasonal_event,past_request_count
+N1,food bank,Sunday,0,3
+N2,food bank,Monday,0,0
+N3,homeless support,Tuesday,0,2
+N4,community kitchen,Saturday,0,1
+N5,food bank,Monday,0,6
+N6,disaster relief,Saturday,0,2
+N7,mid day meal provider,Saturday,0,5
+N8,community kitchen,Thursday,0,5
+N9,food bank,Sunday,0,9
+N10,community kitchen,Sunday,1,5
+N11,food bank,Tuesday,0,4
+N12,disaster relief,Saturday,0,4
+N13,shelter,Thursday,0,4
+N14,community kitchen,Thursday,0,5
+N15,community kitchen,Wednesday,0,3
+N16,shelter,Thursday,0,2
+N17,homeless support,Thursday,0,3
+N18,food bank,Sunday,0,1
+N19,community kitchen,Wednesday,0,2
+N20,homeless support,Friday,0,2
+N21,shelter,Friday,0,6
+N22,disaster relief,Tuesday,0,9
+N23,food bank,Monday,1,6
+N24,food bank,Tuesday,0,4
+N25,food bank,Saturday,0,9
+N26,homeless support,Friday,0,1
+N27,community kitchen,Wednesday,0,5
+N28,community kitchen,Friday,0,7
+N29,disaster relief,Wednesday,1,0
+N30,food bank,Thursday,1,6
+N31,mid day meal provider,Thursday,0,4
+N32,community kitchen,Wednesday,0,6
+N33,food bank,Saturday,0,9
+N34,shelter,Friday,0,4
+N35,shelter,Monday,0,4
+N36,community kitchen,Thursday,0,3
+N37,food bank,Thursday,0,9
+N38,disaster relief,Wednesday,0,4
+N39,homeless support,Tuesday,0,0
+N40,shelter,Wednesday,0,4
+N41,shelter,Sunday,0,9
+N42,disaster relief,Monday,1,3
+N43,food bank,Sunday,0,9
+N44,disaster relief,Sunday,0,9
+N45,shelter,Friday,0,7
+N46,mid day meal provider,Thursday,0,3
+N47,shelter,Wednesday,0,6
+N48,food bank,Wednesday,1,3
+N49,mid day meal provider,Sunday,0,1
+N50,mid day meal provider,Saturday,0,0
+N51,community kitchen,Saturday,0,2
+N52,community kitchen,Wednesday,1,2
+N53,homeless support,Tuesday,1,7
+N54,homeless support,Tuesday,1,1
+N55,homeless support,Thursday,0,1
+N56,community kitchen,Wednesday,0,0
+N57,disaster relief,Saturday,0,9
+N58,mid day meal provider,Thursday,0,1
+N59,community kitchen,Friday,0,6
+N60,homeless support,Saturday,0,4
+N61,shelter,Thursday,0,7
+N62,community kitchen,Friday,0,4
+N63,shelter,Wednesday,1,3
+N64,food bank,Sunday,0,8
+N65,shelter,Thursday,0,2
+N66,food bank,Wednesday,1,3
+N67,shelter,Tuesday,0,6
+N68,mid day meal provider,Tuesday,0,6
+N69,community kitchen,Wednesday,1,4
+N70,mid day meal provider,Saturday,0,6
+N71,food bank,Monday,0,8
+N72,homeless support,Monday,0,0
+N73,disaster relief,Tuesday,0,3
+N74,food bank,Friday,1,5
+N75,community kitchen,Friday,0,2
+N76,food bank,Monday,0,8
+N77,disaster relief,Tuesday,1,8
+N78,shelter,Thursday,0,3
+N79,disaster relief,Thursday,0,4
+N80,food bank,Sunday,0,8
+N81,food bank,Friday,0,4
+N82,shelter,Thursday,0,6
+N83,community kitchen,Tuesday,0,6
+N84,mid day meal provider,Wednesday,0,9
+N85,mid day meal provider,Tuesday,1,9
+N86,food bank,Friday,0,6
+N87,shelter,Wednesday,0,1
+N88,community kitchen,Friday,1,8
+N89,homeless support,Friday,0,0
+N90,community kitchen,Saturday,0,6
+N91,shelter,Saturday,0,7
+N92,homeless support,Friday,0,1
+N93,food bank,Thursday,1,1
+N94,homeless support,Monday,0,4
+N95,disaster relief,Friday,0,7
+N96,mid day meal provider,Saturday,0,0
+N97,community kitchen,Sunday,1,0
+N98,food bank,Friday,1,8
+N99,shelter,Tuesday,0,3
+N100,disaster relief,Thursday,0,2
+N101,community kitchen,Thursday,0,5
+N102,community kitchen,Monday,0,9
+N103,shelter,Sunday,1,6
+N104,food bank,Friday,0,1
+N105,homeless support,Thursday,0,9
+N106,community kitchen,Saturday,0,7
+N107,disaster relief,Thursday,0,8
+N108,mid day meal provider,Wednesday,0,2
+N109,food bank,Monday,0,8
+N110,shelter,Saturday,0,0
+N111,community kitchen,Wednesday,0,0
+N112,disaster relief,Friday,0,5
+N113,mid day meal provider,Friday,1,4
+N114,shelter,Wednesday,0,4
+N115,mid day meal provider,Saturday,1,4
+N116,community kitchen,Sunday,0,2
+N117,community kitchen,Saturday,1,1
+N118,shelter,Saturday,0,0
+N119,shelter,Thursday,0,0
+N120,food bank,Friday,0,5
+N121,disaster relief,Sunday,0,6
+N122,disaster relief,Tuesday,0,9
+N123,disaster relief,Friday,1,7
+N124,mid day meal provider,Saturday,0,7
+N125,homeless support,Tuesday,0,7
+N126,disaster relief,Thursday,0,3
+N127,community kitchen,Monday,0,9
+N128,food bank,Monday,0,4
+N129,disaster relief,Thursday,1,5
+N130,disaster relief,Wednesday,0,8
+N131,community kitchen,Monday,0,3
+N132,disaster relief,Saturday,0,2
+N133,disaster relief,Tuesday,1,1
+N134,homeless support,Wednesday,0,4
+N135,homeless support,Saturday,0,1
+N136,homeless support,Sunday,0,1
+N137,disaster relief,Wednesday,0,4
+N138,disaster relief,Thursday,0,0
+N139,mid day meal provider,Thursday,0,1
+N140,shelter,Wednesday,1,0
+N141,shelter,Friday,0,9
+N142,mid day meal provider,Thursday,0,5
+N143,food bank,Tuesday,1,0
+N144,mid day meal provider,Thursday,1,1
+N145,mid day meal provider,Wednesday,0,0
+N146,disaster relief,Friday,0,6
+N147,mid day meal provider,Tuesday,1,0
+N148,homeless support,Saturday,0,4
+N149,community kitchen,Sunday,1,4
+N150,mid day meal provider,Friday,0,4
+N151,shelter,Monday,1,9
+N152,food bank,Tuesday,0,4
+N153,mid day meal provider,Sunday,0,0
+N154,homeless support,Thursday,1,3
+N155,disaster relief,Tuesday,0,0
+N156,food bank,Sunday,0,1
+N157,homeless support,Sunday,0,7
+N158,mid day meal provider,Tuesday,0,9
+N159,shelter,Saturday,0,5
+N160,homeless support,Sunday,1,1
+N161,disaster relief,Saturday,1,5
+N162,homeless support,Monday,1,8
+N163,disaster relief,Friday,0,6
+N164,food bank,Sunday,0,4
+N165,shelter,Tuesday,0,2
+N166,food bank,Friday,1,1
+N167,community kitchen,Wednesday,0,1
+N168,homeless support,Wednesday,0,2
+N169,homeless support,Wednesday,1,3
+N170,shelter,Tuesday,0,0
+N171,food bank,Wednesday,0,6
+N172,disaster relief,Sunday,0,0
+N173,mid day meal provider,Saturday,1,3
+N174,mid day meal provider,Friday,0,0
+N175,disaster relief,Wednesday,0,3
+N176,homeless support,Thursday,0,1
+N177,food bank,Tuesday,0,1
+N178,mid day meal provider,Friday,0,2
+N179,shelter,Wednesday,0,6
+N180,mid day meal provider,Friday,0,5
+N181,disaster relief,Wednesday,0,3
+N182,mid day meal provider,Wednesday,0,7
+N183,homeless support,Friday,0,2
+N184,shelter,Thursday,0,1
+N185,community kitchen,Monday,0,2
+N186,disaster relief,Saturday,0,4
+N187,shelter,Thursday,0,9
+N188,disaster relief,Sunday,0,4
+N189,mid day meal provider,Saturday,0,4
+N190,food bank,Sunday,0,9
+N191,mid day meal provider,Friday,1,0
+N192,disaster relief,Friday,0,8
+N193,mid day meal provider,Thursday,0,8
+N194,shelter,Saturday,0,7
+N195,food bank,Wednesday,1,0
+N196,shelter,Friday,0,0
+N197,community kitchen,Saturday,0,2
+N198,mid day meal provider,Monday,0,7
+N199,food bank,Friday,0,9
+N200,mid day meal provider,Monday,0,7
