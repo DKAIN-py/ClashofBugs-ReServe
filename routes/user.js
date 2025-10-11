@@ -16,4 +16,6 @@ router.route("/login")
 .post(saveRedirectUrl,passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),userController.login);
 router.get("/profile/:id",isLoggedIn,userController.profile);
 router.get("/logout",userController.logout);
+router.get("/approach",userController.renderApproach);
+router.get("/impact",userController.renderImpact);
 module.exports=router;

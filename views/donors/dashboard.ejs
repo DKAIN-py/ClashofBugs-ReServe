@@ -430,13 +430,18 @@ body {
             <div class="dropdown-menu" id="dropdownMenu">
                 <div class="dropdown-item">
                     <div class="profile-info">
-                        <div class="profile-avatar-small">U</div>
+                        <div class="profile-avatar-small">
+                            <% if(currUser.pfp && currUser.pfp.url) { %>
+                                <img src="<%= currUser.pfp.url %>" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="https://i.pinimg.com/1200x/f3/23/33/f323338233ea1ef3e83ad205919f7a3a.jpg" alt="User profile picture" style="width: 200%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            <% } %>
+                        </div>
                         <div class="profile-details">
                             <a href="/profile/<%= currUser._id %>" style="text-decoration: none;">
-                                <span class="profile-name">User Name</span>
-                                <span class="profile-email">user@email.com</span>
+                                <span class="profile-name"><%= currUser.username %></span>
+                                <span class="profile-email"><%= currUser.email %></span>
                             </a>
-                           
                         </div>
                     </div>
                 </div>

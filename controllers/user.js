@@ -74,3 +74,10 @@ module.exports.profile=async(req,res)=>{
     }
     
 }
+module.exports.renderApproach=async(req,res)=>{
+    res.render("users/approach");
+}
+
+module.exports.renderImpact=async(req,res)=>{
+    res.render("users/impact");
+}
