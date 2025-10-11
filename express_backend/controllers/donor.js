@@ -30,7 +30,7 @@ module.exports.donationSend = async (req, res) => {
       await newDonation.save();
   
       req.flash("success", "Donation created successfully!");
-      res.redirect("/donor/confirmation"); // wherever donor should go
+      res.redirect("/donor"); // wherever donor should go
     } catch (err) {
       console.log(err);
       req.flash("error", "Something went wrong!");
@@ -41,3 +41,4 @@ module.exports.donationSend = async (req, res) => {
   module.exports.confirmationRender=(req,res)=>{
     res.render("donors/orderconfirm.ejs");
   }
+
