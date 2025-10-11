@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReServe - AI Recommendations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .navbar {
+            background: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .logo-group img {
+            height: 30px;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: "Protest Revolution", sans-serif;
+            color: #dc3545;
+            font-style: normal;
+        }
+
+        .hamburger-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+        }
+
+        .hamburger-icon span {
+            width: 30px;
+            height: 3px;
+            background-color: #dc3545;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .hamburger-menu.open {
+            right: 0;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #dc3545;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #dc3545;
+            line-height: 1;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .profile-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #dc3545;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .menu-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .profile-btn:hover {
+            background: #e9ecef;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-family: "Protest Revolution", sans-serif;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #5a6268;
+            text-decoration: none;
+            color: white;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(220, 53, 69, 0.4);
+        }
+
+        .score-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .food-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .food-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .food-type {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .food-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .donor-name {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .serving-count {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .shelf-life {
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .ai-scores {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .score-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 0.4rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .score-label {
+            color: #999;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .score-value {
+            color: #333;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 0.1rem;
+        }
+
+        .distance-info {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .no-items {
+            grid-column: 1/-1;
+            text-align: center;
+            color: #999;
+            padding: 4rem 2rem;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background: #ffffff;
+            color: #6c6969;
+            padding: 3rem 5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .footer-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #d80303;
+        }
+
+        .footer-logo {
+            margin-top: 3rem;
+            margin-right: 5rem;
+            width: 10rem;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .tagline-company {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .footer-box p {
+            margin: 8px 0;
+            font-size: 0.8rem;
+        }
+
+        .footer-box i {
+            color: #df0905;
+            margin-right: 8px;
+        }
+
+        .legal-links {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .legal-links a {
+            text-decoration: none;
+            color: #555;
+            transition: color 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .legal-links a:hover {
+            color: #d94611;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffdcdc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dc4747;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: #f0a79a;
+            color: #fff;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 1400px) {
+            .food-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .food-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .food-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .hamburger-menu {
+                width: 100%;
+                right: -100%;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .ai-scores {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo-group">
+            <img src="/assets/reserve logo1.jpg" alt="ReServe logo">
+            <span class="logo-text">ReServe</span>
+        </div>
+        <div class="hamburger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="menu-header">
+            <h3>Menu</h3>
+            <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-avatar-large">
+                <% if(currUser.pfp && currUser.pfp.url) { %>
+                    <img src="<%= currUser.pfp.url %>" alt="Profile">
+                <% } else { %>
+                    <img src="https://i.pinimg.com/1200x/f3/23/33/f323338233ea1ef3e83ad205919f7a3a.jpg" alt="User profile picture">
+                <% } %>
+            </div>
+            <div class="profile-name"><%= currUser.username %></div>
+            <div class="profile-email"><%= currUser.email %></div>
+        </div>
+
+        <div class="menu-actions">
+            <button class="menu-btn profile-btn" onclick="navigateTo('profile')">View Profile</button>
+            <form action="/logout" method="POST" style="margin: 0;">
+                <button type="submit" class="menu-btn logout-btn" style="width: 100%;">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="header-top">
+                <div>
+                    <h1 class="page-title">AI Recommended Donations</h1>
+                    <p class="page-subtitle">Sorted by relevance and compatibility</p>
+                    <span class="ai-badge">🤖 Powered by AI</span>
+                </div>
+                <a href="/receiver/dashboard" class="back-button">
+                    ← Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="food-grid" id="foodGrid">
+            <% if (donations && donations.length > 0) { %>
+                <% donations.forEach((donation, index) => { %>
+                    <div class="food-card">
+                        <!-- Rank Badge -->
+                        <div class="rank-badge">#<%= donation.rank || index + 1 %></div>
+                        
+                        <!-- AI Score Badge -->
+                        <% if (donation.aiScore && donation.aiScore.final_score !== undefined) { %>
+                            <div class="score-badge">
+                                <%= (donation.aiScore.final_score * 100).toFixed(0) %>%
+                            </div>
+                        <% } %>
+
+                        <img src="<%= donation.image?.url || '/assets/placeholder-food.jpg' %>" 
+                             alt="<%= donation.itemName %>" 
+                             class="food-image"
+                             onerror="this.src='/assets/placeholder-food.jpg'">
+                        
+                        <div class="food-info">
+                            <div class="food-name"><%= donation.itemName %></div>
+                            <div class="food-type">
+                                <%= donation.food_category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) %>
+                            </div>
+                            <div class="shelf-life">
+                                ⏱️ Shelf Life: <%= donation.shelfLife.days %>d <%= donation.shelfLife.hours %>h
+                            </div>
+
+                            <!-- AI Scores Section -->
+                            <% if (donation.aiScore) { %>
+                                <div class="ai-scores">
+                                    <% if (donation.aiScore.food_score !== undefined) { %>
+                                        <div class="score-item">
+                                            <span class="score-label">Food</span>
+                                            <span class="score-value"><%= (donation.aiScore.food_score * 100).toFixed(0) %>%</span>
+                                        </div>
+                                    <% } %>
+                                    
+                                    <% if (donation.aiScore.time_score !== undefined) { %>
+                                        <div class="score-item">
+                                            <span class="score-label">Time</span>
+                                            <span class="score-value"><%= (donation.aiScore.time_score * 100).toFixed(0) %>%</span>
+                                        </div>
+                                    <% } %>
+                                    
+                                    <% if (donation.aiScore.distance_score !== undefined) { %>
+                                        <div class="score-item">
+                                            <span class="score-label">Distance</span>
+                                            <span class="score-value"><%= (donation.aiScore.distance_score * 100).toFixed(0) %>%</span>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                                <!-- Distance Information -->
+                                <% if (donation.aiScore.distance_km !== undefined) { %>
+                                    <div class="distance-info">
+                                        📍 <%= donation.aiScore.distance_km.toFixed(1) %> km away
+                                        <% if (donation.aiScore.duration_min !== undefined) { %>
+                                            • <%= Math.round(donation.aiScore.duration_min) %> min
+                                        <% } %>
+                                    </div>
+                                <% } %>
+                            <% } %>
+
+                            <div class="food-meta">
+                                <span class="donor-name">
+                                    <% if (donation.donor) { %>
+                                        <%= donation.donor.donorName || donation.donor.username || 'Anonymous Donor' %>
+                                    <% } else { %>
+                                        Anonymous Donor
+                                    <% } %>
+                                </span>
+                                <span class="serving-count"><%= donation.serving %> servings</span>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="no-items">
+                    <p>No AI recommendations available at the moment.</p>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">Try adjusting your filters or check back later!</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-box">
+                    <img src="/assets/reserve logo1.jpg" alt="Company Logo" class="footer-logo">
+                    <p class="tagline-company">Connecting donors with those in need</p>
+                </div>
+
+                <div class="footer-box">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> contact@reserve.com</p>
+                </div>
+
+                <div class="footer-box">
+                    <h3>Legal Information</h3>
+                    <p>©️ 2025 ReServe. All rights reserved.</p>
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+
+                <div class="footer-box">
+                    <h3>Follow Us</h3>
+                    <div class

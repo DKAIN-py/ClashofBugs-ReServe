@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Order | ReServe</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Protest+Revolution&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fff8f2 0%, #ffeedc 100%);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-text {
+      font-size: 1.9rem;
+      font-weight: bold;
+      color: #dc3545;
+      font-family: "Protest Revolution", sans-serif;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .hamburger-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-menu:hover {
+      background: rgba(220, 53, 69, 0.1);
+      border-radius: 8px;
+    }
+
+    .hamburger-line {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-menu.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger-menu.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-menu.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(220, 53, 69, 0.1);
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .profile-avatar-small {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #dc3545;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .profile-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .profile-email {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+
+    .logout-option {
+      color: #dc3545;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Main Container */
+    .confirm-container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .confirm-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #dc3545, #b92d3a);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .header-banner i {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-banner h1 {
+      font-family: "Protest Revolution", sans-serif;
+      font-size: 2rem;
+      margin: 0;
+      color: white;
+    }
+
+    .header-banner p {
+      margin: 0.5rem 0 0 0;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .confirm-content {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .image-section {
+      width: 35%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .food-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(220, 53, 69, 0.95);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .details-section {
+      width: 65%;
+      padding: 3rem 2.5rem;
+    }
+
+    .detail-item {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 1.5rem;
+    }
+
+    .detail-item:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #dc3545;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .detail-value {
+      font-size: 1.1rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .description-value {
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .donor-info-box {
+      background: #fff8f2;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .donor-info-box h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #dc3545;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .donor-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .donor-detail i {
+      color: #dc3545;
+      width: 20px;
+    }
+
+    .confirm-actions {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-confirm {
+      flex: 1;
+      min-width: 150px;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-accept {
+      background: linear-gradient(135deg, #dc3545, #b92d3a);
+      color: white;
+      box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .btn-accept:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    .btn-accept:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-reject {
+      background: white;
+      color: #dc3545;
+      border: 2px solid #dc3545;
+    }
+
+    .btn-reject:hover {
+      background: #dc3545;
+      color: white;
+    }
+
+    .terms-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fff3cd;
+      
+      
+    }
+
+    .terms-checkbox input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .terms-checkbox label {
+      font-size: 0.9rem;
+      color: #856404;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .footer {
+      background: #ffffff;
+      color: #6c6969;
+      padding: 3rem 5rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .footer-box h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: #d80303;
+    }
+
+    .footer-logo {
+      margin-top: 3rem;
+      margin-right: 5rem;
+      width: 10rem;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .tagline-company {
+      margin-top: 15px;
+      color: #666;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .footer-box p {
+      margin: 8px 0;
+      font-size: 0.8rem;
+    }
+
+    .footer-box i {
+      color: #df0905;
+      margin-right: 8px;
+    }
+
+    .hours span {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .legal-links {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .legal-links a {
+      text-decoration: none;
+      color: #555;
+      transition: color 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .legal-links a:hover {
+      color: #d94611;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ffdcdc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dc4747;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: #f0a79a;
+      color: #fff;
+    }
+
+    .footer-bottom {
+      margin-top: 3rem;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    .back-to-top {
+      background: #d92008;
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      opacity: 0.85;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .confirm-content {
+        flex-direction: column;
+      }
+
+      .image-section,
+      .details-section {
+        width: 100%;
+      }
+
+      .image-section {
+        height: 300px;
+      }
+
+      .details-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .confirm-actions {
+        flex-direction: column;
+      }
+
+      .btn-confirm {
+        width: 100%;
+      }
+
+      .footer {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="reserve logo1.jpg" alt="ReServe logo" height="60px" style="border-radius: 9999px;">
+      <div class="logo-text">ReServe</div>
+    </div>
+    <div class="nav-right">
+      <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+
+      <div class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-item">
+          <div class="profile-info">
+            <div class="profile-avatar-small">R</div>
+            <div class="profile-details">
+              <span class="profile-name">Receiver Name</span>
+              <span class="profile-email">receiver@email.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown-item" onclick="logout()">
+          <div class="logout-option">
+            <span>Logout</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Confirmation Container -->
+  <main class="confirm-container">
+    <div class="confirm-card">
+      <!-- Header Banner -->
+      <div class="header-banner">
+        <i class="fas fa-box-open"></i>
+        <h1>Confirm Food Order</h1>
+        <p>Review the details and confirm your order</p>
+      </div>
+
+      <!-- Confirmation Content -->
+      <div class="confirm-content">
+        <!-- Image Section (35%) -->
+        <div class="image-section">
+          <div class="status-badge">
+            <i class="fas fa-clock"></i>
+            <span>Available</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800" alt="Food Order" class="food-image" id="orderImage">
+        </div>
+
+        <!-- Details Section (65%) -->
+        <div class="details-section">
+          <div class="detail-item">
+            <div class="detail-label">
+              <i class="fas fa-utensils"></i>
+              Food Name
+            </div>
+            <div class="detail-value" id="displayFoodName">Vegetable Biryani</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">
+              <i class="fas fa-layer-group"></i>
+              Food Category
+            </div>
+            <div class="detail-value" id="displayCategory">Grains & Rice</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">
+              <i class="fas fa-balance-scale"></i>
+              Quantity
+            </div>
+            <div class="detail-value" id="displayQuantity">15 Servings</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">
+              <i class="fas fa-hourglass-half"></i>
+              Shelf Life Remaining
+            </div>
+            <div class="detail-value" id="displayShelfLife">2 Days 4 Hours</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">
+              <i class="fas fa-info-circle"></i>
+              Description
+            </div>
+            <div class="detail-value description-value" id="displayDescription">
+              Freshly prepared vegetable biryani with aromatic basmati rice, mixed vegetables, and traditional spices. Made with hygiene standards and packed in food-grade containers. Suitable for immediate consumption or refrigeration.
+            </div>
+          </div>
+
+          <!-- Donor Information -->
+          <div class="donor-info-box">
+            <h3>
+              <i class="fas fa-user-circle"></i>
+              Donor Information
+            </h3>
+            <div class="donor-detail">
+              <i class="fas fa-user"></i>
+              <span><strong>Name:</strong> John Doe</span>
+            </div>
+            <div class="donor-detail">
+              <i class="fas fa-map-marker-alt"></i>
+              <span><strong>Location:</strong> 123 Main Street, Bhopal</span>
+            </div>
+            <div class="donor-detail">
+              <i class="fas fa-phone"></i>
+              <span><strong>Contact:</strong> +91 98765 43210</span>
+            </div>
+            <div class="donor-detail">
+              <i class="fas fa-calendar-alt"></i>
+              <span><strong>Posted:</strong> 2 hours ago</span>
+            </div>
+          </div>
+
+          <!-- Terms and Conditions -->
+          <div class="terms-checkbox">
+            <input type="checkbox" id="termsAgree" onchange="toggleConfirmButton()">
+            <label for="termsAgree">
+              I confirm that I will collect this food donation within the shelf life period and agree to the terms and conditions. I understand that this food should be consumed or distributed responsibly.
+            </label>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="confirm-actions">
+            <button class="btn-confirm btn-accept" id="confirmBtn" onclick="confirmOrder()" disabled>
+              <i class="fas fa-check-circle"></i>
+              Confirm Order
+            </button>
+            <button class="btn-confirm btn-reject" onclick="rejectOrder()">
+              <i class="fas fa-times-circle"></i>
+              Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <!-- Logo + Tagline -->
+        <div class="footer-box">
+          <img src="reserve logo1.jpg" alt="Company Logo" class="footer-logo">
+          <p class="tagline-company"></p>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer-box">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</p>
+          <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+          <p><i class="fas fa-envelope"></i> contact@company.com</p>
+          <div class="hours">
+            <p><i class="fas fa-clock"></i> Working Hours:</p>
+            <span>08:00 - 21:30 (Tue - Sat)</span><br>
+            <span>08:30 - 22:00 (Sun & Holidays)</span>
+          </div>
+        </div>
+
+        <!-- Legal -->
+        <div class="footer-box">
+          <h3>Legal Information</h3>
+          <p>Tax ID: XX-XXXXXXX</p>
+          <p>©️ 2025 ReServe. All rights reserved.</p>
+          <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="footer-box">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back to Top -->
+      <div class="footer-bottom">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const hamburger = document.querySelector('.hamburger-menu');
+      const dropdown = document.getElementById('dropdownMenu');
+
+      hamburger.classList.toggle('active');
+      dropdown.classList.toggle('active');
+    }
+
+    function logout() {
+      alert('Logging out...');
+      // Add logout logic here
+    }
+
+    function toggleConfirmButton() {
+      const checkbox = document.getElementById('termsAgree');
+      const confirmBtn = document.getElementById('confirmBtn');
+      
+      if (checkbox.checked) {
+        confirmBtn.disabled = false;
+      } else {
+        confirmBtn.disabled = true;
+      }
+    }
+
+    function confirmOrder() {
+      const checkbox = document.getElementById('termsAgree');
+      
+      if (!checkbox.checked) {
+        alert('Please agree to the terms and conditions before confirming.');
+        return;
+      }
+
+      // Show confirmation message
+      alert('Order Confirmed! The donor will be notified. You will receive pickup details shortly.');
+      
+      // Redirect or update UI
+      // window.location.href = 'order-confirmed.html';
+    }
+
+    function rejectOrder() {
+      const confirmed = confirm('Are you sure you want to decline this food donation?');
+      
+      if (confirmed) {
+        alert('Order declined. Returning to available donations...');
+        // window.location.href = 'available-donations.html';
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('dropdownMenu');
+      const hamburger = document.querySelector('.hamburger-menu');
+      
+      if (!hamburger.contains(event.target) && !dropdown.contains(event.target)) {
+        hamburger.classList.remove('active');
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Initialize button state on load
+    window.addEventListener('DOMContentLoaded', function() {
+      toggleConfirmButton();
+    });
+  </script>
+</body>
+
+</html>

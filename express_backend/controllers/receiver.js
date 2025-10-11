@@ -118,7 +118,9 @@ module.exports.filterDonations = async (req, res) => {
             }
         );
         console.log(flaskResponse.data);
-        return flaskResponse.data;
+        req.session.filteredDonations = flaskResponse.data;
+
+        res.redirect("/receiver/filter");
 
         
         
@@ -127,5 +129,64 @@ module.exports.filterDonations = async (req, res) => {
         console.error('Error filtering donations via Flask API:', error.message);
         
         
+    }
+};
+
+module.exports.showFilteredDonations = async (req, res) => {
+    try {
+        const flaskData = req.session.filteredDonations;
+
+        if (!flaskData || !flaskData.filtered_donations || flaskData.filtered_donations.length === 0) {
+            req.flash("info", "No filtered donations available");
+            return res.redirect("/receiver/dashboard");
+        }
+
+        // Get the array of AI-scored donations with their IDs and scores
+        const aiScoredDonations = flaskData.filtered_donations; // Array of objects with _id and scores
+        
+        // Extract just the IDs in order
+        const sortedDonationIds = aiScoredDonations.map(item => item._id);
+
+        console.log('Sorted Donation IDs from AI:', sortedDonationIds);
+
+        // Fetch all donations from MongoDB
+        const donations = await DonorItem.find({ 
+            _id: { $in: sortedDonationIds } 
+        }).populate("donor", "username donorName receiverName email phone address");
+
+        // Create a map for quick lookup: donationId -> donation object
+        const donationMap = {};
+        donations.forEach(donation => {
+            donationMap[donation._id.toString()] = donation;
+        });
+
+        // Sort donations according to AI order and attach AI scores
+        const sortedDonations = sortedDonationIds.map((id, index) => {
+            const donation = donationMap[id];
+            if (donation) {
+                // Find the AI score data for this donation
+                const aiScore = aiScoredDonations.find(item => item._id === id);
+                
+                // Attach AI score and rank to the donation object
+                donation.aiScore = aiScore || {};
+                donation.rank = index + 1;
+                
+                return donation;
+            }
+            return null;
+        }).filter(d => d !== null); // Remove any null entries
+
+        console.log(`Rendering ${sortedDonations.length} AI-sorted donations`);
+
+        res.render("receiver/filteredDonations", {
+            currUser: req.user,
+            donations: sortedDonations,
+            pageTitle: "AI Recommended Donations"
+        });
+
+    } catch (err) {
+        console.error("Error rendering filtered donations:", err);
+        req.flash("error", "Could not display filtered donations");
+        res.redirect("/receiver/dashboard");
     }
 };

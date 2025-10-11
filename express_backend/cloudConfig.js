@@ -11,7 +11,7 @@ cloudinary.config({
     cloudinary: cloudinary,
     params: {
       folder: 'StayQuest_dev',  // Optional: Folder for uploaded files in Cloudinary
-      allowed_formats: ['jpg', 'jpeg', 'png'],  // Optional: Restrict allowed file types
+      allowed_formats: ['jpg', 'jpeg', 'png','webp'],  // Optional: Restrict allowed file types
     }
   });
 
