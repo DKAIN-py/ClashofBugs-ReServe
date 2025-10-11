@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReServe - Donor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cherish&family=Homemade+Apple&family=Kings&family=Moon+Dance&family=My+Soul&family=Protest+Revolution&family=Ruthie&family=The+Nautigal:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cherish&family=Homemade+Apple&family=Kings&family=Moon+Dance&family=My+Soul&family=Protest+Revolution&family=Rouge+Script&family=Ruthie&family=The+Nautigal:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.9rem;
+            font-weight: bold;
+            color: #dc3545;
+            font-family: "Protest Revolution", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu:hover {
+            background: rgba(220, 53, 69, 0.1);
+            border-radius: 8px;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-avatar-small {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #dc3545;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .profile-email {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .logout-option {
+            color: #dc3545;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn {
+            display: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            background-image: url("/assets/donor_dashyc2.png");
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            margin-top: 5rem;
+            color: rgb(20, 1, 1);
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1px;
+            margin-top: 150px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .donate-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .donate-button:hover {
+            background-color: #c82333;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(220, 53, 69, 0.4);
+        }
+
+        /* Impact Section */
+        .impact-section {
+            padding: 20px 0;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0px;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-family: "Protest Revolution",
+        }
+
+        .impact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .impact-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+
+
+        .impact-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #dc3545;
+            margin-bottom: 10px;
+            font-family: "Protest Revolution";
+        }
+
+        .impact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            font-family: "Protest Revolution";
+            
+        }
+
+        .impact-description {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        /* General Footer Styling */
+        .footer {
+            background: #ffffff;
+            color: #6c6969;
+            padding: 3rem 5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .footer-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #d80303;
+        }
+
+        .footer-logo {
+            margin-top: 3rem;
+            margin-right: 5rem;
+            width: 10rem;
+            height: auto;
+            border-radius: 5px;
+
+        }
+
+        .tagline-company {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.8rem;
+            line-height: 1.4;
+
+        }
+
+        /* Contact Info */
+        .footer-box p {
+            margin: 8px 0;
+            font-size: 0.8rem;
+        }
+
+        .footer-box i {
+            color: #df0905;
+            /* teal-ish */
+            margin-right: 8px;
+        }
+
+        .hours span {
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* Legal */
+        .legal-links {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+        }
+
+        .legal-links a {
+            text-decoration: none;
+            color: #555;
+            transition: color 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .legal-links a:hover {
+            color: #d94611;
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffdcdc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dc4747;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #f0a79a;
+            color: #fff;
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .back-to-top {
+            background: #d92008;
+            color: #fff;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            opacity: 0.85;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .donate-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+
+            .awareness-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .impact-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .impact-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .impact-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .impact-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .impact-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/assets/reserve logo1.jpg" alt="ReServe logo" height="60px" style="border-radius: 9999px;">
+            <div class="logo-text">ReServe</div>
+        </div>
+        <div class="nav-right">
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <div class="dropdown-item">
+                    <div class="profile-info">
+                        <div class="profile-avatar-small">
+                            <% if(currUser.pfp && currUser.pfp.url) { %>
+                                <img src="<%= currUser.pfp.url %>" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="https://i.pinimg.com/1200x/f3/23/33/f323338233ea1ef3e83ad205919f7a3a.jpg" alt="User profile picture" style="width: 200%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            <% } %>
+                        </div>
+                        <div class="profile-details">
+                            <a href="/profile/<%= currUser._id %>" style="text-decoration: none;">
+                                <span class="profile-name"><%= currUser.username %></span>
+                                <span class="profile-email"><%= currUser.email %></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-item" onclick="logout()">
+                    <div class="logout-option">
+                        <a href="/logout" style="text-decoration: none;color: red;"><span >Logout</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-image">
+                <div class="hero-content">
+                    <h1 class="hero-title">End Hunger Together</h1>
+                    <p class="hero-subtitle">Every donation makes a difference in someone's life</p>
+                </div>
+            </div>
+            <a href="/donor/donate">
+                <button class="donate-button" onclick="handleDonation()">Donate Now</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <div class="container">
+            <h2 class="section-title">Your Impact Till Now</h2>
+            <p class="section-subtitle">Together, we're making a real difference in communities across India</p>
+
+            <div class="impact-cards">
+                <div class="impact-card">
+                    <div class="impact-icon"></div>
+                    <div class="impact-number">2.5M</div>
+                    <h3 class="impact-title">Meals Served</h3>
+                    <p class="impact-description">Nutritious meals delivered to families in need across 15 states,
+                        ensuring no one goes to bed hungry.</p>
+                </div>
+
+                <div class="impact-card">
+                    <div class="impact-icon"></div>
+                    <div class="impact-number">125K</div>
+                    <h3 class="impact-title">Families Supported</h3>
+                    <p class="impact-description">Direct support provided to vulnerable families, helping them achieve
+                        food security and better nutrition.</p>
+                </div>
+
+                <div class="impact-card">
+                    <div class="impact-icon"></div>
+                    <div class="impact-number">840T</div>
+                    <h3 class="impact-title">Food Rescued</h3>
+                    <p class="impact-description">Tons of surplus food redirected from waste to those who need it most,
+                        creating a sustainable food system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+
+                <!-- Logo + Tagline -->
+                <div class="footer-box">
+                    <img src="/assets/reserve logo1.jpg" alt="Company Logo" class="footer-logo">
+                    <p class="tagline-company"></p>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-box">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> contact@company.com</p>
+                    <div class="hours">
+                        <p><i class="fas fa-clock"></i> Working Hours:</p>
+                        <span>08:00 - 21:30 (Tue - Sat)</span><br>
+                        <span>08:30 - 22:00 (Sun & Holidays)</span>
+                    </div>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-box">
+                    <h3>Legal Information</h3>
+                    <p>Tax ID: XX-XXXXXXX</p>
+                    <p>©️ 2024 Company Name. All rights reserved.</p>
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+
+                <!-- Social -->
+                <div class="footer-box">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Top -->
+            <div class="footer-bottom">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const dropdown = document.getElementById('dropdownMenu');
+
+            hamburger.classList.toggle('active');
+            dropdown.classList.toggle('active');
+        }
+
+        function alerting() {
+            alert("Mainu Maaf Kri Maa meriye Is Hackathon tera ho naa paaya!!!")
+        }
+
+
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.impact-card, .awareness-content > *').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
