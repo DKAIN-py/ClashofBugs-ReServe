@@ -466,7 +466,7 @@
     <div class="form-card">
       <h1>Food Donation Form</h1>
 
-      <form id="donationForm" enctype="multipart/form-data" action="/receiver" method="post">
+      <form id="donationForm" enctype="multipart/form-data"  action="/donor/donate"  method="post">
         <!-- Food Category -->
         <div class="form-group">
           <label for="category" class="form-label">Food Category</label>
@@ -517,12 +517,10 @@
           <label class="form-label">Shelf Life</label>
           <div class="shelf-life-group">
             <div>
-              <input type="number" class="form-control" id="shelf-days" name="shelf-days" placeholder="Days" min="0"
-                required>
+              <input type="number" class="form-control" id="shelf-days" name="donorItem[shelfLife][days]" placeholder="Days" min="0" value="0">
             </div>
             <div>
-              <input type="number" class="form-control" id="shelf-hours" name="shelf-hours" placeholder="Hours" min="0"
-                max="23" required>
+              <input type="number" class="form-control" id="shelf-hours" name="donorItem[shelfLife][hours]" placeholder="Hours" min="0" max="23" required>
             </div>
           </div>
         </div>

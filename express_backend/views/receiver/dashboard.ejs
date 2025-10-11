@@ -6,6 +6,20 @@
     <title>Document</title>
 </head>
 <body>
-    hihihihih
+    <h1>Welcome, <%= user.receiverName || user.email %> 👋</h1>
+
+<section class="donations">
+  <% donations.forEach(item => { %>
+    <div class="donation-card">
+      <img src="<%= item.image.url %>" alt="<%= item.itemName %>" class="donation-img">
+      <h3><%= item.itemName %></h3>
+      <p><strong>Category:</strong> <%= item.food_category.replaceAll('_', ' ') %></p>
+      <p><strong>Servings:</strong> <%= item.serving %></p>
+      <p><strong>Shelf Life:</strong> <%= item.shelfLife.days %> days <%= item.shelfLife.hours %> hours</p>
+      <p><strong>Description:</strong> <%= item.description %></p>
+      <p><strong>Donor:</strong> <%= item.donor?.donorName %> | <%= item.donor?.address %></p>
+    </div>
+  <% }) %>
+</section>
 </body>
 </html>
