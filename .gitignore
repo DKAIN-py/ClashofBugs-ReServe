@@ -2,3 +2,6 @@
 express_backend/node_modules
 flask_backend/.venv
 flask_backend/template
+flask_backend/services/donor_fake.csv
+flask_backend/services/receiver_fake.csv
+flask_backend/pycache
