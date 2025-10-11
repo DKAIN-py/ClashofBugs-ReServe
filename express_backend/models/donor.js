@@ -15,15 +15,9 @@ const donorSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    cookedStatus: {
-      type: String,
-      enum: ["cooked", "uncooked"],
-      required: true,
-    },
-    expiry: {
-      type: String,
-      enum: ["4hrs", "6hrs", "8hrs", "10hrs", "12hrs"],
-      required: true,
+    shelfLife: {
+      days: { type: Number, min: 0, default: 0 },
+      hours: { type: Number, min: 0, max: 23, required: true },
     },
     serving: {
       type: Number,
@@ -38,6 +32,7 @@ const donorSchema = new mongoose.Schema({
         "vegetables",
         "curries_and_gravies",
         "snacks_and_streetfood",
+        "sweets_and_desserts",
         "breakfast_items",
         "dairy_products",
         "fruits",
@@ -45,6 +40,13 @@ const donorSchema = new mongoose.Schema({
       ],
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 300 // optional limit for neatness
+    },
+    
     image: {
       url: String,
       filename: String

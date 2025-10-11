@@ -1,5 +1,6 @@
 .DS_Store
 express_backend/node_modules
+express_backend/.env
 flask_backend/.venv
 flask_backend/template
 flask_backend/services/donor_fake.csv

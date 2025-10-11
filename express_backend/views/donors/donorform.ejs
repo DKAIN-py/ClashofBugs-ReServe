@@ -466,20 +466,21 @@
     <div class="form-card">
       <h1>Food Donation Form</h1>
 
-      <form id="donationForm">
+      <form id="donationForm" enctype="multipart/form-data" action="/receiver" method="post">
         <!-- Food Category -->
         <div class="form-group">
           <label for="category" class="form-label">Food Category</label>
-          <select class="form-select" id="category" name="category" required>
+          <select class="form-select" id="category" name="donorItem[food_category]" required>
             <option value="">Select a category</option>
-            <option value="grains_rice">Grains & Rice</option>
+            <option value="grains_and_rice">Grains & Rice</option>
             <option value="breads">Breads</option>
-            <option value="lentils_pulses">Lentils & Pulses</option>
+            <option value="lentils_and_pulses">Lentils & Pulses</option>
             <option value="vegetables">Vegetables</option>
-            <option value="curries_gravies">Curries & Gravies</option>
-            <option value="snacks_street">Snacks & Street Food</option>
-            <option value="breakfast">Breakfast Items</option>
-            <option value="dairy">Dairy Products</option>
+            <option value="curries_and_gravies">Curries & Gravies</option>
+            <option value="snacks_and_streetfood">Snacks & Street Food</option>
+            <option value="breakfast_items">Breakfast Items</option>
+            <option value="sweets_and_desserts">Sweets and Desserts</option>
+            <option value="dairy_products">Dairy Products</option>
             <option value="fruits">Fruits</option>
             <option value="beverages">Beverages</option>
           </select>
@@ -488,14 +489,27 @@
         <!-- Food Name -->
         <div class="form-group">
           <label for="foodname" class="form-label">Food Name</label>
-          <input type="text" class="form-control" id="foodname" name="foodname" placeholder="Enter food name" required>
+          <input
+            type="text"
+            class="form-control"
+            id="foodname"
+            name="donorItem[itemName]"
+            placeholder="Enter food name"
+            required
+          >
         </div>
 
-        <!-- Food Quality -->
+        <!-- Food Quantity -->
         <div class="form-group">
-          <label for="quality" class="form-label">Food Quantity</label>
-          <input type="text" class="form-control" id="quality" name="quality" placeholder="In number of Serving"
-            required>
+          <label for="serving" class="form-label">Food Quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="serving"
+            name="donorItem[serving]"
+            placeholder="Enter number of servings"
+            required
+          >
         </div>
 
         <!-- Shelf Life -->
@@ -514,20 +528,35 @@
         </div>
 
         <!-- Image Upload -->
-        <div class="form-group">
-          <label for="image" class="form-label">Upload Food Image</label>
-          <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
-          <img id="imagePreview" class="preview-img d-none" alt="Food Preview">
-          <div id="imageCheck" class="check-box">✓ Food looks in good condition and matches the information provided.
-          </div>
-        </div>
+<div class="form-group">
+  <label for="image" class="form-label">Upload Food Image</label>
+  <input 
+    class="form-control" 
+    type="file" 
+    id="image" 
+    name="donorItem[image]" 
+    accept="image/*" 
+    required
+  >
+  <img id="imagePreview" class="preview-img d-none" alt="Food Preview">
+  <div id="imageCheck" class="check-box">
+    ✓ Food looks in good condition and matches the information provided.
+  </div>
+</div>
 
-        <!-- Food Description -->
-        <div class="form-group">
-          <label for="description" class="form-label">Food Description</label>
-          <textarea class="form-control" placeholder="Provide additional details about the food" id="description"
-            name="description" rows="4" required></textarea>
-        </div>
+<!-- Food Description -->
+<div class="form-group">
+  <label for="description" class="form-label">Food Description</label>
+  <textarea 
+    class="form-control" 
+    placeholder="Provide additional details about the food" 
+    id="description"
+    name="donorItem[description]" 
+    rows="4" 
+    maxlength="300"
+    required
+  ></textarea>
+</div>
 
         <!-- Submit -->
         <button type="submit" class="btn-donate">Submit Donation</button>
